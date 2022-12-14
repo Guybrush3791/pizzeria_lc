@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>SEARCH FOR PIZZA & DRINK</h1>
+	
+	<form
+		method="GET"
+		action="/available"
+	>
+		<label>Name: </label> 
+		<input type="text" name="query" th:value="${query}"> 
+		<input type="submit" value="SEARCH"> 
+	</form>
+	<h2>Pizza</h2>
+	<ul>
+		<li
+			th:each="pizza : ${pizzas}"
+			th:object="${pizza}"
+		>
+			[[*{id}]] - [[*{name}]]
+			<br>
+			[[*{description}]]
+		</li>
+	</ul>
+	<h2>Drink</h2>
+	<ul>
+		<li
+			th:each="drink : ${drinks}"
+			th:object="${drink}"
+		>
+			[[*{id}]] - [[*{name}]]
+			<br>
+			[[*{description}]]
+		</li>
+	</ul>
+</body>
+</html>

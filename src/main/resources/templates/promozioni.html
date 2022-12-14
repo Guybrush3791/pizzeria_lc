@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Promozioni</h1>
+	<a
+		href="/promozione/create"
+	>
+		CREA NUOVA PROMOZIONE
+	</a>
+	<ul>
+		<li
+			th:each="promozione : ${promozioni}"
+			th:object="${promozione}"
+		>	
+			[[*{titolo}]]<br>
+			[[*{dataInizio}]] ~ [[*{dataFine}]]
+			<ul>
+				<li
+					th:each="pizza : *{pizze}"
+					th:object="${pizza}"
+				>
+					[[*{name}]]
+				</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

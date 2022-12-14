@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>INGREDIENTI:</h1>
+	<a
+		href="/ing/create"
+	>
+		CREA NUOVO INGREDIENTE
+	</a>
+	<ul>
+		<li
+			th:each="ingrediente : ${ingredienti}"
+			th:object="${ingrediente}"
+		>
+			[[*{name}]]
+			<ul>
+				<li
+					th:each="pizza : *{pizze}"
+					th:object="${pizza}"
+				>
+					[[*{name}]]
+				</li>
+			</ul>
+			<a
+				th:href="@{/ing/update/{id} (id=*{id})}"
+			>UPDATE</a>
+		</li>
+	</ul>
+</body>
+</html>

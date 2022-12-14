@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Drinks</h1>
+	<div th:insert="frag :: error()" />
+	<form>
+		<label>Name: </label>
+		<input type="text" name="q" th:value="${query}">
+		<br><br>
+		<input type="submit" value="SEARCH">
+	</form>
+	<ul>
+		<li
+			th:each="drink : ${drinks}"
+			th:object="${drink}"
+		>
+			([[*{id}]]) [[*{name}]] - [[*{price}]]<br>
+			[[*{description}]]<br>
+			<a
+				th:href="@{/drink/update/{id} (id=*{id})}"
+			>
+				UPDATE
+			</a> - 
+			<a
+				th:href="@{/drink/delete/{id} (id=*{id})}"
+			>
+				DELETE
+			</a>
+		</li>
+	</ul>
+</body>
+</html>

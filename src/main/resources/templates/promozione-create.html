@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body
+	th:object="${promozione}"
+>
+	<h1>Nuova Promozione</h1>
+	<form
+		method="POST"
+		action="/promozione/create"
+	>
+		<label>Titolo: </label>
+		<input type="text" name="titolo" th:field="*{titolo}">
+		<br>
+		<label>Data di inizio: </label>
+		<input type="date" name="dataInizio" th:field="*{dataInizio}">
+		<br>
+		<label>Data di fine: </label>
+		<input type="date" name="dataFine" th:field="*{dataFine}">
+		<br>
+		<label>Pizze:</label><br>
+		<div
+			th:each="pizza : ${pizze}"
+			th:object="${pizza}"
+		>
+			<input
+				type="checkbox"
+				
+				name="pizze"
+				th:value="*{id}"
+				th:field="${promozione.pizze}"
+			>
+			<label>[[*{name}]]</label>
+		</div>
+		<br><br>
+		<input type="submit" value="CREATE">		
+	</form>
+</body>
+</html>

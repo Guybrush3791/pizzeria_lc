@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div
+		th:fragment="error()"
+		th:if="${errors} != NULL OR ${catchError} != NULL"
+	>
+		ERROR:<br>
+		<ul>
+			<li
+				th:each="error : ${errors}"
+				th:object="${error}"
+			>
+				[[*{defaultMessage}]]
+			</li>
+			<li
+				th:if="${catchError} != NULL"
+			>
+				[[${catchError}]]
+			</li>
+		</ul>
+	</div>	
+
+</body>
+</html>

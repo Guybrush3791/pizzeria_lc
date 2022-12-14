@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Drinks</h1>
+	<div th:insert="frag :: error()" />
+	<form
+		th:object="${drink}"
+		method="POST"
+		action="/drink/create"
+	>
+		<label>Name</label>
+		<input type="text" name="name" th:field="*{name}">
+		<br>
+		<label>Description</label>
+		<input type="text" name="description" th:field="*{description}">
+		<br>
+		<label>Price</label>
+		<input type="number" name="price" th:field="*{price}">
+		<br><br>
+		<input type="submit" name="CREATE">
+	</form>
+</body>
+</html>
