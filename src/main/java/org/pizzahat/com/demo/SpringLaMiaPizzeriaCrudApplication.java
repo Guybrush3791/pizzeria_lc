@@ -2,16 +2,22 @@ package org.pizzahat.com.demo;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.pizzahat.com.demo.pojo.Drink;
 import org.pizzahat.com.demo.pojo.Ingrediente;
 import org.pizzahat.com.demo.pojo.Pizza;
 import org.pizzahat.com.demo.pojo.Promozione;
+import org.pizzahat.com.demo.pojo.Role;
+import org.pizzahat.com.demo.pojo.User;
 import org.pizzahat.com.demo.serv.DrinkServ;
 import org.pizzahat.com.demo.serv.IngredienteService;
 import org.pizzahat.com.demo.serv.PizzaServ;
 import org.pizzahat.com.demo.serv.PromozioneServ;
+import org.pizzahat.com.demo.serv.RoleServ;
+import org.pizzahat.com.demo.serv.UserServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,6 +37,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	
 	@Autowired
 	private IngredienteService ingredienteService;
+	
+	@Autowired
+	private UserServ userServ;
+	
+	@Autowired
+	private RoleServ roleServ;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
@@ -97,33 +109,51 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		List<Drink> drinks = drinkServ.findAll();
 		System.out.println(drinks);
 		
+		Role roleUser = new Role("USER");
+		Role roleAdmin = new Role("ADMIN");
+		
+		roleServ.save(roleUser);
+		roleServ.save(roleAdmin);
+		
+		User uUser = new User("user", "{noop}user", roleUser);
+		User uAdmin = new User("admin", "{noop}admin", roleAdmin);
+		
+		Set<Role> godRoles = new HashSet<>();
+		godRoles.add(roleUser);
+		godRoles.add(roleAdmin);
+		User uGod = new User("god", "{noop}god", godRoles);
+		
+		userServ.save(uUser);
+		userServ.save(uAdmin);
+		userServ.save(uGod);
+		
 		// -- READ --------------------------------------------------------
 		
 //		Pizza delPizza = pizzaServ.findById(1).get();
 //		pizzaServ.delete(delPizza);
 		
-		List<Pizza> pizze = pizzaServ.findAll();
-		for (Pizza p : pizze) {
-			
-			System.out.println(
-						p + "\n------------\n" 
-						+ p.getPromozione() 
-						+ "\n------------\n\n"
-					);
-		}
-		
-//		Promozione delProm = promozioneServ.findById(2);
-//		promozioneServ.delete(delProm);
-		
-		List<Promozione> promozioni = promozioneServ.findAllWPizze();
-		for (Promozione p : promozioni) {
-			
-			System.out.println(p);
-			if (p.getPizze() != null)
-				for (Pizza pizza : p.getPizze()) {
-					
-					System.out.println("\t" + pizza);
-				}
-		}
+//		List<Pizza> pizze = pizzaServ.findAll();
+//		for (Pizza p : pizze) {
+//			
+//			System.out.println(
+//						p + "\n------------\n" 
+//						+ p.getPromozione() 
+//						+ "\n------------\n\n"
+//					);
+//		}
+//		
+////		Promozione delProm = promozioneServ.findById(2);
+////		promozioneServ.delete(delProm);
+//		
+//		List<Promozione> promozioni = promozioneServ.findAllWPizze();
+//		for (Promozione p : promozioni) {
+//			
+//			System.out.println(p);
+//			if (p.getPizze() != null)
+//				for (Pizza pizza : p.getPizze()) {
+//					
+//					System.out.println("\t" + pizza);
+//				}
+//		}
 	}
 }

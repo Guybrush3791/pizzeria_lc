@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/")
 public class PizzaController {
-
+ 
 	@Autowired
 	private PizzaServ pizzaServ;
 	
@@ -44,7 +44,7 @@ public class PizzaController {
 		return "home";
 	}
 	
-	@GetMapping("/pizza/create")
+	@GetMapping("/pizza/admin/create")
 	public String getPizzaCreate(Model model) {
 		
 		Pizza pizza = new Pizza();
@@ -58,7 +58,7 @@ public class PizzaController {
 		
 		return "pizza-create";
 	}
-	@PostMapping("/pizza/create")
+	@PostMapping("/pizza/admin/create")
 	public String storePizza(@Valid Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if (bindingResult.hasErrors()) {
@@ -90,7 +90,7 @@ public class PizzaController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/pizza/update/{id}")
+	@GetMapping("/pizza/admin/update/{id}")
 	public String getPizzaUpdate(@PathVariable("id") int id, Model model) {
 		
 		Optional<Pizza> optPizza = pizzaServ.findById(id);
@@ -105,7 +105,7 @@ public class PizzaController {
 		
 		return "pizza-update";
 	}
-	@PostMapping("/pizza/update")
+	@PostMapping("/pizza/admin/update")
 	public String updatePizza(@Valid Pizza pizza) {
 		
 		pizzaServ.save(pizza);
@@ -113,7 +113,7 @@ public class PizzaController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/pizza/delete/{id}")
+	@GetMapping("/pizza/admin/delete/{id}")
 	public String deletePizza(@PathVariable int id) {
 		
 		Optional<Pizza> optPizza = pizzaServ.findById(id);
@@ -124,7 +124,7 @@ public class PizzaController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/pizza/search")
+	@GetMapping("/pizza/user/search")
 	public String searchPizza(Model model,  
 			@RequestParam(name = "query", required = false) String query) {
 		
@@ -143,6 +143,7 @@ public class PizzaController {
 							: pizzaServ.findByName(query);
 		
 		model.addAttribute("pizzas", pizzas);
+		model.addAttribute("query", query);
 		
 		return "pizza-search";
 	}

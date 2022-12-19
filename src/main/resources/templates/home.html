@@ -6,14 +6,18 @@
 </head>
 <body>
 	<h1>PIZZE</h1>
+	Logged user: <span sec:authentication="name">Bob</span>
+	<br>
 	<a
-		href="/pizza/create"
+		href="/pizza/admin/create"
+		sec:authorize="hasAuthority('ADMIN')"
 	>
 		CREATE NEW PIZZA
 	</a>
 	<br>
 	<a
-		href="/pizza/search"
+		href="/pizza/user/search"
+		sec:authorize="isAuthenticated()"
 	>
 		SEARCH FOR PIZZA
 	</a>
@@ -42,16 +46,20 @@
 					</li>
 				</ul>
 			</div>
-			<a
-				th:href="@{/pizza/update/{id} (id=*{id})}"
+			<div
+				sec:authorize="hasAuthority('ADMIN')"
 			>
-				UPDATE
-			</a> - 
-			<a
-				th:href="@{/pizza/delete/{id} (id=*{id})}"
-			>
-				DELETE
-			</a>
+				<a
+					th:href="@{/pizza/admin/update/{id} (id=*{id})}"
+				>
+					UPDATE
+				</a> - 
+				<a
+					th:href="@{/pizza/admin/delete/{id} (id=*{id})}"
+				>
+					DELETE
+				</a>
+			</div>
 		</li>
 	</ul>
 </body>

@@ -8,7 +8,7 @@
 	<h1>NEW PIZZA</h1>
 	<form
 		method="POST"
-		action="/pizza/update"
+		th:action="@{/pizza/admin/update}"
 		th:object="${pizza}"
 	>
 		<input type="text" name="id" th:field="*{id}" style="display:none">

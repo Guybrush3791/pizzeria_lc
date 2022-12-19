@@ -18,9 +18,9 @@ public class PizzaServ {
 		
 		return pizzaRepo.findAll();
 	}
-	public void save(Pizza pizza) {
+	public Pizza save(Pizza pizza) {
 		
-		pizzaRepo.save(pizza);
+		return pizzaRepo.save(pizza);
 	}
 	public void delete(Pizza pizza) {
 		
